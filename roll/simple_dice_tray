@@ -1,0 +1,89 @@
+/*
+Written by Steve E.
+A simple dice tray with two layout modes. Works with chat messages.
+*/
+let modeF = 400
+let modeC = 200
+
+let o = new Dialog({
+ title: "Dice Tray Layout",
+ content: '',
+ buttons: {
+  flat: {
+   label: "Flat",
+   callback: () => {draw(modeF)}
+  },
+  compact: {
+   label: "Compact",
+   callback: () =>{ draw(modeC)}
+  }
+ },
+ default: '',
+ close: () => {}
+});
+o.render(true);
+
+function draw(size){
+let tray = new Dialog({
+  title: `Dice Tray`,
+  content: '',
+  buttons: {
+    d4: {
+      label: `d4`,
+      callback: () => {
+        makeRoll(4);
+      }
+    },
+    d6: {
+      label: `d6`,
+      callback: () => {
+        makeRoll(6);
+      }
+    },
+    d8: {
+      label: `d8`,
+      callback: () => {
+        makeRoll(8);
+      }
+    },
+    d10: {
+      label: `d10`,
+      callback: () => {
+        makeRoll(10);
+      }
+    },
+    d12: {
+      label: `d12`,
+      callback: () => {
+        makeRoll(12);
+      }
+    },
+    d20: {
+      label: `d20`,
+      callback: () => {
+        makeRoll(20);
+      }
+    },
+    d100: {
+      label: `d100`,
+      callback: () => {
+        makeRoll(100);
+      }
+    },
+    },
+  default: '',
+  close: () => {}
+},
+{
+  width:size
+});
+
+tray.render(true)
+
+function makeRoll(die)
+{
+  tray.render(true)
+  let r = new Roll('1d'+die)
+  r.roll().toMessage({speaker: ChatMessage.getSpeaker()})
+}
+}
